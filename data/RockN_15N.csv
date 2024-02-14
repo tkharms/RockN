@@ -1,0 +1,34 @@
+﻿sampleID,sample_wt,N_signal,N_pct,d15N,N_mgkg,precision,lab,rundate,catchment,rock_type,rock_chars,rock_cats
+12,100.195,0.12,0.002,9.48,24.51,1 per mil,UAF_SIF,23-Apr,Salcha,igneous,felsic,a
+38,99.709,0.25,0.005,-15.34,51.52,1 per mil,UAF_SIF,23-Apr,FortHamlinHills,igneous,felsic,a
+13,99.541,0.21,0.004,-0.45,43.18,1 per mil,UAF_SIF,23-Apr,NoName,igneous,mafic,b
+49,99.539,0.06,0.001,-4.71,12.13,2 per mil,UAF_SIF,23-Apr,SFkKoyukuk,igneous,mafic/ultramafic,c
+54,99.727,1,0.021,-1.18,205.63,0.1,UAF_SIF,23-Apr,Hess,igneous,mafic/ultramafic,c
+46,100.241,1.52,0.031,3.05,311.15,0.1,UAF_SIF,23-Apr,Tolovana,melange,,
+87,100.406,1.03,0.021,0.86,209.13,0.1,UAF_SIF,23-Apr,Chatanika,metamorphic,high,g
+C-4 peroxide,49.754,0.75,0.03,3.49,311.53,0.1,UAF_SIF,17-Feb,C-4,metamorphic,high,g
+C3 rocks,47.408,0.41,0.02,1.05,179.752788,0.1,UAF_SIF,17-Feb,C-3,metamorphic,high,g
+C3-1a,50.288,0.68,0.03,4.93,278.34,0.1,UAF_SIF,17-Feb,C-3,metamorphic,high,g
+C3-1b,47.28,0.25,0.01,4.54,110.1463174,0.1,UAF_SIF,17-Feb,C-3,metamorphic,high,g
+C3-2,49.796,0.76,0.03,1.82,313.3297813,0.1,UAF_SIF,17-Feb,C-3,metamorphic,high,g
+C3-3,47.319,0.23,0.01,3.24,100.0504868,0.1,UAF_SIF,17-Feb,C-3,metamorphic,high,g
+Chat-2,51.63,1.13,0.05,2,451.31,0.1,UAF_SIF,17-Feb,Chatanika,metamorphic,high,g
+1,99.671,0.19,0.004,7.7,39.63,1 per mil,UAF_SIF,23-Apr,SFkKoyuku,metamorphic,low-mid,d
+15,100.099,4.53,0.093,-1.11,925.79,0.1,UAF_SIF,23-Apr,Bonanza,metamorphic,low-mid,d
+3,100.158,0.21,0.004,-1.54,41.89,1 per mil,UAF_SIF,23-Apr,SFkChena,metamorphic,mid,e
+6,100.231,0.35,0.007,-0.1,71.47,0.1,UAF_SIF,23-Apr,,metamorphic,mid,e
+56,100.22,0.47,0.01,-3.4,96.18,0.1,UAF_SIF,23-Apr,Vault,metamorphic,mid,e
+72,100.055,0.15,0.003,0.97,30.68,1 per mil,UAF_SIF,23-Apr,LittleChena,metamorphic,mid,e
+43,99.734,0.48,0.01,3.04,97.47,0.1,UAF_SIF,23-Apr,Salcha,metamorphic,mid-high,f
+53,99.808,0.25,0.005,-3.56,51.88,1 per mil,UAF_SIF,23-Apr,Wolverine,metamorphic,mid-high,f
+55,100.147,0.87,0.018,-0.65,178.41,0.1,UAF_SIF,23-Apr,McManus_Creek,metamorphic,mid-high,f
+2,100.268,0.44,0.009,1.01,88.99,0.1,UAF_SIF,23-Apr,Hess,sedimentary,deep water,j
+39,99.939,0.15,0.003,1.41,30.92,1 per mil,UAF_SIF,23-Apr,Lost,sedimentary,deep water,j
+40,100.258,0.08,0.002,2.18,16.74,2 per mil,UAF_SIF,23-Apr,Livengood,sedimentary,shallow marine,h
+26,100.308,0.07,0.001,7.33,13.67,2 per mil,UAF_SIF,23-Apr,Pioneer,sedimentary,"slope, deep water",i
+ref/chk/peptone,0.663,4.85,14.98,6.93,,,UAF_SIF,23-Apr,,,,
+ref/chk/peptone,0.685,5.1,15.22,6.94,,,UAF_SIF,23-Apr,,,,
+ref/chk/peptone,0.419,3.05,14.92,6.87,,,UAF_SIF,23-Apr,,,,
+ref/chk/peptone,0.358,2.75,15.72,7.23,,,UAF_SIF,23-Apr,,,,
+ref/chk/peptone,0.388,2.97,15.66,6.92,,,UAF_SIF,23-Apr,,,,
+ref/chk/peptone,0.47,3.42,14.96,7.14,,,UAF_SIF,17-Feb,,,,
