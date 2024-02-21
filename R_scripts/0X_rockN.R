@@ -1,4 +1,4 @@
-### Nitrogen content of rocks ###
+#### Nitrogen content of rocks ###
 ## Merge rock N & del15N with sample attributes
 ## Rock samples from Alaska Geologic Materials Center
 
