@@ -1,23 +1,23 @@
 ### Plot N content & del15N of rocks as a function of geologic attributes ###
-## Merge rock N & del15N with sample attributes
 ## Rock samples from Alaska Geologic Materials Center
 
 ## Inputs:
-# Materials Center sample metadata
-# Rock N
+# Rock N w/ metadata: "rockNmeta.csv"
 
 library(tidyverse)
 library(here)
 
 ## Data ##
-rocks <- read.csv(here("data", "rockN", "RockN_15N.csv"))
+Nmeta <- read.csv(here("data", "rockNmeta.csv"))
 
 ### Plots ###
-## Boxplots by rock type
-rockN.pl <- rocks %>% filter(!is.na(N_mgkg)) %>%
-                      ggplot(aes(x = rock_type, y = N_mgkg)) +
+## Boxplots by rock type (ig, meta, sed)
+rockN.pl <- Nmeta %>% filter(!is.na(N_mgkg)) %>%
+                      filter(!is.na(type)) %>%
+                      ggplot(aes(x = type, y = N_mgkg)) +
                         geom_boxplot() +
                         ylab("Nitrogen (mg/kg)") +
+                        scale_x_discrete(labels = c("igneous", "metamorphic", "sedimentary")) +
                         theme_bw() +
                         theme(panel.grid = element_blank(),
                               panel.border = element_rect(color = "black", size = 2),
@@ -26,12 +26,69 @@ rockN.pl <- rocks %>% filter(!is.na(N_mgkg)) %>%
                               axis.title.x = element_blank()
                           )
 
-ggsave(rockN.pl, path = "plots", file = "prelim_rockN.pdf", width = 9, height = 8, units = "in")
+ggsave(rockN.pl, path = "plots", file = "N_igmetased.pdf", width = 9, height = 8, units = "in")
 
-rock15N.pl <- rocks %>% filter(!is.na(N_mgkg)) %>%
-  ggplot(aes(x = rock_type, y = d15N)) +
+rock15N.pl <- Nmeta %>% filter(!is.na(N_mgkg)) %>%
+                        filter(!is.na(type)) %>%
+                        ggplot(aes(x = type, y = del15N)) +
+                          geom_boxplot() +
+                          ylab(expression(delta^{"15"}*N~"(‰)")) +
+                          scale_x_discrete(labels = c("igneous", "metamorphic", "sedimentary")) +
+                          theme_bw() +
+                        theme(panel.grid = element_blank(),
+                              panel.border = element_rect(color = "black", size = 2),
+                              axis.text = element_text(size = 20),
+                              axis.title.y = element_text(size = 20),
+                              axis.title.x = element_blank()
+                          )
+  
+ggsave(rock15N.pl, path = "plots", file = "prelim_rock15N.pdf", width = 9, height = 8, units = "in", encoding="MacRoman")
+
+## Violin plots
+
+ggplot(df, aes(x = dose, y = len, fill = dose)) +
+  geom_violin(alpha = 0.5) +
+  geom_point(position = position_jitter(seed = 1, width = 0.2)) +
+  theme(legend.position = "none")
+
+rockN.pl2 <- Nmeta %>% filter(!is.na(N_mgkg)) %>%
+                       filter(!is.na(type)) %>%
+                       ggplot(aes(x = type, y = N_mgkg)) +
+                       geom_violin(alpha = 0.5) +
+                       geom_point(position = position_jitter(seed = 1, width = 0.2)) +
+                          ylab("Nitrogen (mg/kg)") +
+                          scale_x_discrete(labels = c("igneous", "metamorphic", "sedimentary")) +
+                       theme_bw() +
+                       theme(panel.grid = element_blank(),
+                          panel.border = element_rect(color = "black", size = 2),
+                          axis.text = element_text(size = 20),
+                          axis.title.y = element_text(size = 20),
+                          axis.title.x = element_blank()
+  )
+
+## By rock attributes
+rockN.pl2 <- Nmeta %>% filter(!is.na(N_mgkg)) %>%
+                       filter(!is.na(type)) %>%
+                       ggplot(aes(x = type, y = N_mgkg)) +
+                       geom_boxplot() +
+                       ylab("Nitrogen (mg/kg)") +
+                       #scale_x_discrete(labels = c("igneous", "metamorphic", "sedimentary")) +
+                       theme_bw() +
+                       theme(panel.grid = element_blank(),
+                          panel.border = element_rect(color = "black", size = 2),
+                          axis.text = element_text(size = 20),
+                          axis.title.y = element_text(size = 20),
+                          axis.title.x = element_blank()
+  )
+
+ggsave(rockN.pl2, path = "plots", file = "N_igmetased.pdf", width = 9, height = 8, units = "in")
+
+rock15N.pl <- Nmeta %>% filter(!is.na(N_mgkg)) %>%
+  filter(!is.na(type)) %>%
+  ggplot(aes(x = type, y = del15N)) +
   geom_boxplot() +
   ylab(expression(delta^{"15"}*N~"(‰)")) +
+  scale_x_discrete(labels = c("igneous", "metamorphic", "sedimentary")) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black", size = 2),
@@ -39,60 +96,8 @@ rock15N.pl <- rocks %>% filter(!is.na(N_mgkg)) %>%
         axis.title.y = element_text(size = 20),
         axis.title.x = element_blank()
   )
-  
+
 ggsave(rock15N.pl, path = "plots", file = "prelim_rock15N.pdf", width = 9, height = 8, units = "in", encoding="MacRoman")
-
-## By rock attributes
-# All rock types on faceted plots
-# This is a manual hack. Will fix later when full dataset is in.
-labels <- c(a = "felsic", 
-            b = "mafic", 
-            c = "mafic/ultramafic", 
-            d = "low-mid", 
-            e = "mid",
-            f = "mid-high",
-            g = "high",
-            h = "shallow marine",
-            i = "slope, deep water",
-            j = "deep water")
-
-rockN_types.pl <- rocks %>% filter(!is.na(N_mgkg) & rock_type != "melange") %>%
-                            ggplot(aes(x = rock_cats, y = N_mgkg)) +
-                              geom_point(size = 2, position = position_jitter(width = 0.15)) +
-                              ylab("Nitrogen (mg/kg)") +
-                              scale_x_discrete(labels = labels) +
-                              facet_wrap(~rock_type, scales = "free_x") +
-                              theme_bw() +
-                              theme(panel.grid = element_blank(),
-                                panel.border = element_rect(color = "black", size = 2),
-                                axis.text = element_text(size = 20),
-                                axis.title.y = element_text(size = 20),
-                                axis.title.x = element_blank(),
-                                axis.text.x = element_text(angle = 45, hjust = 1),
-                                strip.background = element_blank(),
-                                strip.text = element_text(size = 20)
-  )
-
-ggsave(rockN_types.pl, path = "plots", file = "prelim_rockN_types.pdf", width = 9, height = 8, units = "in", encoding="MacRoman")
-
-rock15N_types.pl <- rocks %>% filter(!is.na(N_mgkg) & rock_type != "melange") %>%
-  ggplot(aes(x = rock_cats, y = d15N)) +
-  geom_point(size = 2, position = position_jitter(width = 0.15)) +
-  ylab(expression(delta^{"15"}*N~"(‰)")) +
-  scale_x_discrete(labels = labels) +
-  facet_wrap(~rock_type, scales = "free_x") +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black", size = 2),
-        axis.text = element_text(size = 20),
-        axis.title.y = element_text(size = 20),
-        axis.title.x = element_blank(),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        strip.background = element_blank(),
-        strip.text = element_text(size = 20)
-  )
-                    
-ggsave(rock15N_types.pl, path = "plots", file = "prelim_rock15N_types.pdf", width = 9, height = 8, units = "in", encoding="MacRoman")
 
 ## Separate panels for Yesim talk
 # bulk N

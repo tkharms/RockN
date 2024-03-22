@@ -41,7 +41,29 @@ nit <- read_excel(here("data", "rockN_comp.xlsx"))
 ### Look-up table linking state geo layer classes to broader classifications 
 cats <- read_excel(here("data", "stategeo_class_lookup.xlsx"))
 
+# replace "N/A" with NA
+cats[cats == "N/A"] <- NA
+
 ### Specimen attributes from state database
 state <- read_excel(here("data", "Harms_UAF_sampled_220526.xlsx"))
 
-### Read in stream chem from drive (this not in drive yet)
+### Read in stream chem from drive ###
+stream <- read.csv(here("data", "chemspace.csv"))
+
+### Join N to rock characterization ###
+names(chars)[names(chars) == 'sample_id'] <- 'assigned_sample_label'
+
+Nchars <- full_join(nit, chars, by = "assigned_sample_label")
+
+write.csv(Nchars, here("data", "rockNmeta.csv"), row.names = FALSE)
+
+# Samples without characterization of specimens
+nometa <- Nchars %>% filter(is.na(type)) %>%
+                     filter(!grepl("ref/", ID))
+
+write.csv(nometa, here("data", "samples_missing_rockchars.csv"), row.names = FALSE)
+  
+p <- drive_get(as_id(Nurl))
+  
+drive_upload(here("data", "samples_missing_rockchars.csv"), path=as_id(p),type = 'csv', name ='samples_missing_rockchars')
+  
