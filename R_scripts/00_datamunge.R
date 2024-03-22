@@ -35,6 +35,13 @@ chars[chars == "N/A"] <- NA
 # remove the N data- these will be merged in a later step to ensure completeness
 chars <- chars %>% select(-c(dN15, N_mgkg))
 
+# Correct spelling
+chars <- chars %>% mutate(type_b = ifelse(type_b == "gniess", "gneiss", type_b))
+
+# Reduce deformation categories
+chars <- chars %>% mutate(deform = ifelse(deformation =="min", "low", 
+                                      ifelse(deformation == "moderate/high", "moderate-high", deformation)))
+
 ### Rock N data 
 nit <- read_excel(here("data", "rockN_comp.xlsx"))
 
